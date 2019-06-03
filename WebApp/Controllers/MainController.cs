@@ -21,6 +21,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult display(string ip, int port)
         {
+            Location location;
+            int refreshRate = 0;
             try
             {
                 // if the ip adress isnt valid, and excetion will be catched, and go to the mission with the file.
@@ -31,17 +33,19 @@ namespace WebApp.Controllers
                 if (!c.IsConnected) return View();
 
                 // read the lat and lon values from the simulator.
-                c.ReadData();
-                Location location = c.GetLocation;
-                UpdateSessionValues(location.Lon, location.Lat);
+                 c.ReadData();
+                 location = c.GetLocation;
             }
             // file case.
             catch
             {
-                // case for reading the file here.
-
+                FileHandler fh = FileHandler.Instance;
+                // the ip in this case is the fileName.
+                location = fh.load(ip);
+                // the port in this case is the refreshe rate.
+                refreshRate = port;
             }
-
+            UpdateSessionValues(location.Lon, location.Lat, refreshRate);
             return View();
         }
 

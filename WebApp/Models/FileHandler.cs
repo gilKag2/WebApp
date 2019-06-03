@@ -10,7 +10,6 @@ namespace WebApp.Models
     public sealed class FileHandler
     {
         private static FileHandler _instance = null;
-       
         private static readonly object padLock = new object();
         public static FileHandler Instance
         {
@@ -53,23 +52,28 @@ namespace WebApp.Models
                 set { _rudder = value; }
             }
         }
+        private string currPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
         // load
-        
+        public Location load(string fileName)
+        {
+            string filePath = currPath + "/" +  fileName;
+            Data data  = ReadFromXml<Data>(filePath);
+            return data.Location;
+        }
 
 
         // save
         public void Save(double lon, double lat, double rudder, double throttle, string fileName)
         {
-            string filePath = System.AppDomain.CurrentDomain.BaseDirectory;
-            filePath += "/" + fileName;          //// check this!!!!!!!!!!!!1
+            string filePath = currPath + "/" + fileName;          //// check this!!!!!!!!!!!!1
             // data object to pass to the xml writer.
             Data data = new Data(new Location(lat, lon), throttle, rudder);
             WriteToXml<Data>(filePath, data);
         }
 
 
-        public static void WriteToXml<T>(string filePath, T objectToWrite) where T : new()
+        private static void WriteToXml<T>(string filePath, T objectToWrite) where T : new()
         {
             TextWriter writer = null;
             try
@@ -85,7 +89,7 @@ namespace WebApp.Models
             }
         }
 
-        public T ReadToXml<T>(string filePath) where T : new()
+        private T ReadFromXml<T>(string filePath) where T : new()
         {
             TextReader reader = null;
             try

@@ -77,19 +77,20 @@ namespace WebApp.Models
         {
             ep = new IPEndPoint(IPAddress.Parse(ip), port);
             _client = new TcpClient();
-            Thread thread = new Thread(() =>
+            // try to connect until sucess.
+            while (!_client.Connected)
             {
-                // try to connect until sucess.
-                while (!_client.Connected)
+                try
                 {
-                    try
-                    {
-                        _client.Connect(ep);
-                    }
-                    catch (SocketException) { }
-                }
-            });
-            thread.Start();
+                    _client.Connect(ep);                   /// not sure if needed in different thread!!!!!!
+                } 
+                catch (SocketException) { }
+            }
+            //Thread thread = new Thread(() =>
+            //{
+               
+            //});
+            //thread.Start();
             
             _isConnected = true;
         }
