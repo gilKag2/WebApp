@@ -32,7 +32,8 @@ namespace WebApp.Controllers
 
                 // read the lat and lon values from the simulator.
                 c.ReadData();
-                UpdateSessionValues(c.Lon, c.Lat);
+                Location location = c.GetLocation;
+                UpdateSessionValues(location.Lon, location.Lat);
             }
             // file case.
             catch
@@ -53,7 +54,8 @@ namespace WebApp.Controllers
 
             // read the values from the simulator.
             c.ReadData();
-            UpdateSessionValues(c.Lon, c.Lat, refreshRate);
+            Location location = c.GetLocation;
+            UpdateSessionValues(location.Lon, location.Lat, refreshRate);
 
             return View();
         }
@@ -66,7 +68,8 @@ namespace WebApp.Controllers
 
             // read the values from the simulator.
             c.ReadData();
-            UpdateSessionValues(c.Lon, c.Lat, refreshRate, duration);
+            Location location = c.GetLocation;
+            UpdateSessionValues(location.Lon, location.Lat, refreshRate, duration);
 
             FileHandler fh = FileHandler.Instance;
 

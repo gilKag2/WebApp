@@ -9,24 +9,40 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace Models
+namespace WebApp.Models
 {
     //singleton.
     public sealed class Connection
     {
-        private double _lon;
-        public double Lon
+        private double _rudder;
+        public double Rudder
         {
-            get {return _lon; }
-            set {_lon = value;}
+            get { return _rudder; }
+            set { _rudder = value; }
         }
-        private double _lat;
-        public double Lat
+        private double _throttle;
+        public double Throttle
         {
-            get { return _lat; }
-            set { _lat = value; }
+            get { return _throttle; }
+            set { _throttle = value; }
         }
-
+        //private double _lon;
+        //public double Lon
+        //{
+        //    get {return _lon; }
+        //    set {_lon = value;}
+        //}
+        //private double _lat;
+        //public double Lat
+        //{
+        //    get { return _lat; }
+        //    set { _lat = value; }
+        //}
+        private Location location;
+        public Location GetLocation
+        {
+            get { return location; }
+        }
         volatile private TcpClient _client;
         private bool _isConnected;
         IPEndPoint ep;
@@ -47,7 +63,7 @@ namespace Models
         public Connection()
         {
             _isConnected = false;
-            
+            location = new Location();
         }
 
         public bool IsConnected
@@ -88,8 +104,10 @@ namespace Models
                     Int32 bytesReaden = stream.Read(data, 0, data.Length);
                     string[] parsedData = Encoding.ASCII.GetString(data, 0, bytesReaden).Split(',');
 
-                    Lon = Convert.ToDouble(parsedData[0]);
-                    Lat = Convert.ToDouble(parsedData[1]);
+                    location.Lon = Convert.ToDouble(parsedData[0]);
+                    location.Lat = Convert.ToDouble(parsedData[1]);
+                    Throttle = Convert.ToDouble(parsedData[21]);
+                    Rudder = Convert.ToDouble(parsedData[19]);     // check that there are the values of throttle and rudder.
                 }
                 catch (SocketException) { };
             }
