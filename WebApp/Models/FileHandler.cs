@@ -24,7 +24,7 @@ namespace WebApp.Models
             }
         }
 
-        public class Data
+        private class Data
         {
             public Data() { }
             public Data(Location location, double throttle, double rudder)
@@ -55,7 +55,7 @@ namespace WebApp.Models
         private string currPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
         // load
-        public Location load(string fileName)
+        public Location Load(string fileName)
         {
             string filePath = currPath + "/" +  fileName;
             Data data  = ReadFromXml<Data>(filePath);

@@ -15,7 +15,7 @@ namespace WebApp.Controllers
        
         public ActionResult Index()
         {
-            ViewBag.BackgroundImage = "/Views/Images/export-map-share.png";
+           
             return View();
         }
         [HttpGet]
@@ -41,7 +41,7 @@ namespace WebApp.Controllers
             {
                 FileHandler fh = FileHandler.Instance;
                 // the ip in this case is the fileName.
-                location = fh.load(ip);
+                location = fh.Load(ip);
                 // the port in this case is the refreshe rate.
                 refreshRate = port;
             }
@@ -84,10 +84,10 @@ namespace WebApp.Controllers
         public Location postLocation()
         {
             // idk
+            return new Location();
         }
         
-        public Location
-
+      
         private void UpdateSessionValues(double lon, double lat, int refresheRate = 0, int duration = 0)
         {
             Session["Lon"] = lon;

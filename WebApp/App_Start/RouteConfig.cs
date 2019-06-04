@@ -7,21 +7,24 @@ using System.Web.Routing;
 
 namespace WebApp
 {
-    
+
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Default", "{controller}/{action}/{id}",
+                defaults: new { controller = "Main", action = "Index", id = UrlParameter.Optional });
+
             routes.MapRoute("Display", "display/{ip}/{port}",
-             defaults: new { controller = "MainController", action = "Display" });
+             defaults: new { controller = "Main", action = "Display" });
 
             routes.MapRoute("DisplayWithRoute", "display/{ip}/{port}/{refreshRate}",
-                defaults: new { controller = "MainController", action = "DisplayWithRoute" });
+                defaults: new { controller = "Main", action = "DisplayWithRoute" });
             routes.MapRoute("SaveToFile", "save/{ip}/{port}/{refreshRate}/{duration}/{fileName}",
-                defaults: new { controller = "MainController", action = "SaveToFile" });
-               
+                defaults: new { controller = "Main", action = "SaveToFile" });
+
         }
     }
 }
