@@ -14,13 +14,13 @@ namespace WebApp
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("display", "display/{ip}/{port}",
-             defaults: new { controller = "MainController", action = "display" });
+            routes.MapRoute("Display", "display/{ip}/{port}",
+             defaults: new { controller = "MainController", action = "Display" });
 
-            routes.MapRoute("displayWithRoute", "display/{ip}/{port}/{refreshRate}",
-                defaults: new { controller = "MainController", action = "displayWithRoute" });
-            routes.MapRoute("saveToFile", "save/{ip}/{port}/{refreshRate}/{duration}{fileName}",
-                defaults: new { controller = "MainController", action = "saveToFile" });
+            routes.MapRoute("DisplayWithRoute", "display/{ip}/{port}/{refreshRate}",
+                defaults: new { controller = "MainController", action = "DisplayWithRoute" });
+            routes.MapRoute("SaveToFile", "save/{ip}/{port}/{refreshRate}/{duration}/{fileName}",
+                defaults: new { controller = "MainController", action = "SaveToFile" });
                
         }
     }

@@ -12,14 +12,14 @@ namespace WebApp.Controllers
 
     public class MainController : Controller
     {
-
+       
         public ActionResult Index()
         {
             ViewBag.BackgroundImage = "/Views/Images/export-map-share.png";
             return View();
         }
         [HttpGet]
-        public ActionResult display(string ip, int port)
+        public ActionResult Display(string ip, int port)
         {
             Location location;
             int refreshRate = 0;
@@ -50,7 +50,7 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult displayWithRoute(string ip, int port, int refreshRate)
+        public ActionResult DisplayWithRoute(string ip, int port, int refreshRate)
         {
             Connection c = Connection.Instance;
             c.Connect(ip, port);
@@ -64,7 +64,7 @@ namespace WebApp.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult saveToFile(string ip, int port, int refreshRate, int duration, string fileName)
+        public ActionResult SaveToFile(string ip, int port, int refreshRate, int duration, string fileName)
         {
             Connection c = Connection.Instance;
             c.Connect(ip, port);
@@ -80,7 +80,14 @@ namespace WebApp.Controllers
 
             return View();
         }
-        [HttpGet]
+        [HttpPost]
+        public Location postLocation()
+        {
+            // idk
+        }
+        
+        public Location
+
         private void UpdateSessionValues(double lon, double lat, int refresheRate = 0, int duration = 0)
         {
             Session["Lon"] = lon;
